@@ -122,7 +122,7 @@ const getFontPbf = (allowedFonts, fontPath, name, range, fallbacks) =>
               }
             }
 
-            console.error(`ERROR: Trying to use ${fallbackName} as a fallback`);
+            console.error(`Trying to use ${fallbackName} as a fallback`);
             delete fallbacks[fallbackName];
             getFontPbf(null, fontPath, fallbackName, range, fallbacks).then(
               resolve,

@@ -300,6 +300,7 @@ const extractMarkersFromQuery = (query, options, transformer) => {
 
       // If the selected icon is not part of available icons skip it
       if (!options.paths.availableIcons.includes(iconURI)) {
+        console.log('[WARN] Icon not found:', iconURI);
         continue;
       }
 
@@ -1523,7 +1524,13 @@ export const serve_rendered = {
         const maxPoolSize = Math.max(minPoolSize, maxPoolSizes[j]);
         const languages = new Set([null, ...(options.languages || [])]);
 
-        map.renderers[s] = createPool(s, 'tile', minPoolSize, maxPoolSize, null);
+        map.renderers[s] = createPool(
+          s,
+          'tile',
+          minPoolSize,
+          maxPoolSize,
+          null,
+        );
         for (const language of languages) {
           map.renderers_static[`${s}${language}`] = createPool(
             s,

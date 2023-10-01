@@ -94,7 +94,7 @@ function start(opts) {
   paths.fonts = path.resolve(paths.root, paths.fonts || '');
   paths.sprites = path.resolve(paths.root, paths.sprites || '');
   paths.mbtiles = path.resolve(paths.root, paths.mbtiles || '');
-  paths.icons = path.resolve(paths.root, paths.icons || '');
+  paths.icons = path.resolve(paths.root, paths.icons || ''); // FIXME: should we really have a default of ''? expose recursively all files should be opt-in?
 
   const startupPromises = [];
 
@@ -143,6 +143,9 @@ function start(opts) {
     new Promise((resolve) => {
       getFiles(paths.icons).then((files) => {
         paths.availableIcons = files;
+        if (opts.verbose) {
+          console.log('Loaded icons:', files);
+        }
         resolve();
       });
     }),

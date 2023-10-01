@@ -69,12 +69,12 @@ Static images
 
       * ``scale`` - Factor to scale image by
 
-        * e.g. ``0.5`` - Scales the image to half it's original size
+        * e.g. ``scale:0.5`` - Scales the image to half it's original size
 
       * ``offset`` - Image offset as positive or negative pixel value in format ``[offsetX],[offsetY]``
 
         * scales with ``scale`` parameter since image placement is relative to it's size
-        * e.g. ``2,-4`` - Image will be moved 2 pixel to the right and 4 pixel in the upwards direction from the provided location
+        * e.g. ``offset:2,-4`` - Image will be moved 2 pixel to the right and 4 pixel in the upwards direction from the provided location
 
     * e.g. ``5.9,45.8|marker-start.svg|scale:0.5|offset:2,-4``
     * can be provided multiple times

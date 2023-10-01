@@ -140,8 +140,8 @@ It is recommended to also use the ``serveAllFonts`` option when using this optio
 ``watermark``
 -----------
 
-Optional string to be rendered into the raster tiles (and static maps) as watermark (bottom-left corner).
-Can be used for hard-coding attributions etc. (can also be specified per-style).
+Optional string to be rendered into the raster tiles and static maps as watermark (bottom-left corner).
+Can be used for hard-coding attributions etc. Can also be specified per-style.
 Not used by default.
 
 ``allowRemoteMarkerIcons``
