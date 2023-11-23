@@ -24,7 +24,7 @@ const precisePx = (ll, zoom) => {
  * @param {number} z Map zoom level.
  */
 const drawMarker = (ctx, marker, z) => {
-  return new Promise((resolve) => {
+  return new Promise((resolve, reject) => {
     const img = new Image();
     const pixelCoords = precisePx(marker.location, z);
 
@@ -79,7 +79,7 @@ const drawMarker = (ctx, marker, z) => {
 
     img.onload = drawOnCanvas;
     img.onerror = (err) => {
-      throw err;
+      reject(err);
     };
     img.src = marker.icon;
   });

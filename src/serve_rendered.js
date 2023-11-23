@@ -436,8 +436,11 @@ const respondImage = (
     renderer.render(params, (err, data) => {
       pool.release(renderer);
       if (err) {
-        console.error(err);
-        return res.status(500).header('Content-Type', 'text/plain').send(err);
+        console.error('ERROR: render failed', err);
+        return res
+          .status(500)
+          .header('Content-Type', 'text/plain')
+          .send('Render failed');
       }
 
       const image = sharp(data, {
@@ -898,8 +901,9 @@ export const serve_rendered = {
                 let data = tileinfo.data;
                 let headers = tileinfo.header;
                 if (data == undefined) {
-                  if (options.verbose)
-                    console.log('MBTiles error, serving empty', err);
+                  if (options.verbose) {
+                    console.log('PMTiles error, serving empty', err);
+                  }
                   createEmptyResponse(
                     sourceInfo.format,
                     sourceInfo.color,
@@ -931,8 +935,9 @@ export const serve_rendered = {
               } else if (sourceType === 'mbtiles') {
                 source.getTile(z, x, y, (err, data, headers) => {
                   if (err) {
-                    if (options.verbose)
+                    if (options.verbose) {
                       console.log('MBTiles error, serving empty', err);
+                    }
                     createEmptyResponse(
                       sourceInfo.format,
                       sourceInfo.color,
@@ -1001,6 +1006,12 @@ export const serve_rendered = {
                 parsedResponse.data = responseData;
                 callback(null, parsedResponse);
               } catch (error) {
+                if (options.verbose) {
+                  console.log(
+                    `Resource error for ${req.url}, serving empty`,
+                    err,
+                  );
+                }
                 const parts = url.parse(req.url);
                 const extension = path.extname(parts.pathname).toLowerCase();
                 const format = extensionToFormat[extension] || '';
@@ -1027,7 +1038,7 @@ export const serve_rendered = {
     try {
       styleJSON = JSON.parse(fs.readFileSync(styleJSONPath));
     } catch (e) {
-      console.log('Error parsing style file');
+      console.error('ERROR: Error parsing style file');
       return false;
     }
 
@@ -1171,7 +1182,7 @@ export const serve_rendered = {
               map.sources[name] = new MBTiles(inputFile + '?mode=ro', (err) => {
                 map.sources[name].getInfo((err, info) => {
                   if (err) {
-                    console.error(err);
+                    console.error('ERROR: getInfo failed', err);
                     return;
                   }
                   map.sourceTypes[name] = 'mbtiles';
