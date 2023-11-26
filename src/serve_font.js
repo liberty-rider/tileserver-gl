@@ -32,7 +32,11 @@ export const serve_font = async (options, allowedFonts) => {
         res.header('Last-Modified', lastModified);
         return res.send(concatenated);
       } catch (err) {
-        res.status(400).header('Content-Type', 'text/plain').send(err);
+        console.error('ERROR: font serving failed', err);
+        res
+          .status(400)
+          .header('Content-Type', 'text/plain')
+          .send('Font serving failed');
       }
     },
   );
